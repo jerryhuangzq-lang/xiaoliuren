@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171815" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="小六壬" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>小六壬</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --paper: #f3efe6;
+        --paper-deep: #e9e1d2;
+        --ink: #1c201b;
+        --muted: #686b62;
+        --line: rgba(48, 54, 45, 0.16);
+        --line-strong: rgba(48, 54, 45, 0.28);
+        --surface: rgba(255, 253, 248, 0.58);
+        --red: #a8322b;
+        --red-soft: rgba(168, 50, 43, 0.10);
+        --green: #356746;
+        --green-soft: rgba(53, 103, 70, 0.10);
+        --shadow: rgba(57, 44, 24, 0.11);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #171815;
+          --paper-deep: #20211d;
+          --ink: #eeeade;
+          --muted: #a7a69d;
+          --line: rgba(237, 233, 220, 0.13);
+          --line-strong: rgba(237, 233, 220, 0.25);
+          --surface: rgba(39, 40, 35, 0.72);
+          --red: #dc6a5b;
+          --red-soft: rgba(220, 106, 91, 0.13);
+          --green: #81b58c;
+          --green-soft: rgba(129, 181, 140, 0.13);
+          --shadow: rgba(0, 0, 0, 0.30);
+        }
+      }
+
+      * { box-sizing: border-box; }
+
+      html { min-height: 100%; background: var(--paper); }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100svh;
+        color: var(--ink);
+        background:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      button { font: inherit; }
+
+      .page {
+        width: min(100%, 780px);
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: max(24px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+        display: grid;
+        align-content: center;
+        gap: 16px;
+      }
+
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .context {
+        min-width: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .context strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .zone-switch {
+        display: inline-flex;
+        flex: 0 0 auto;
+        padding: 3px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+      }
+
+      .zone-switch button {
+        min-width: 58px;
+        padding: 7px 12px;
+        border: 0;
+        border-radius: 999px;
+        color: var(--muted);
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .zone-switch button[aria-pressed="true"] {
+        color: #fffaf2;
+        background: var(--red);
+      }
+
+      .calendar {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(30px, 7vw, 56px);
+        border: 1px solid var(--line-strong);
+        border-radius: 9px 9px 28px 9px;
+        background: var(--surface);
+        box-shadow: 0 22px 55px var(--shadow);
+      }
+
+      .calendar::before,
+      .calendar::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .calendar::before {
+        inset: 14px;
+        border: 1px solid var(--line);
+        border-radius: 4px 4px 20px 4px;
+      }
+
+      .calendar::after {
+        width: 220px;
+        height: 220px;
+        right: -98px;
+        top: -112px;
+        border: 1px solid var(--red);
+        border-radius: 50%;
+        opacity: 0.28;
+      }
+
+      .year-line {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: var(--muted);
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: clamp(14px, 2.6vw, 17px);
+      }
+
+      .year-line::before,
+      .year-line::after {
+        content: "";
+        width: 44px;
+        height: 1px;
+        background: var(--line-strong);
+      }
+
+      .lunar-main {
+        position: relative;
+        z-index: 1;
+        margin: 18px 0 12px;
+        text-align: center;
+        font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+        font-size: clamp(53px, 12vw, 94px);
+        font-weight: 700;
+        line-height: 1.12;
+        letter-spacing: 0.06em;
+      }
+
+      .lunar-main .month { color: var(--ink); }
+      .lunar-main .day { color: var(--red); }
+
+      .detail-line {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        color: var(--muted);
+        font-size: clamp(14px, 3vw, 17px);
+      }
+
+      .dot {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--red);
+      }
+
+      .shichen-countdown {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 13px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .shichen-countdown time {
+        color: var(--red);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 15px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.01em;
+      }
+
+      .clock-row {
+        position: relative;
+        z-index: 1;
+        margin-top: clamp(28px, 7vw, 46px);
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .clock {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: clamp(28px, 7vw, 46px);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .solar {
+        max-width: 240px;
+        color: var(--muted);
+        text-align: right;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .quick-data {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .info-item {
+        min-width: 0;
+        padding: 14px 16px;
+      }
+
+      .info-item + .info-item { border-left: 1px solid var(--line); }
+
+      .info-label {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .info-value {
+        display: block;
+        overflow: hidden;
+        color: var(--ink);
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: 18px;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .relation-section {
+        padding: 13px 16px 14px;
+        border-top: 1px solid var(--line);
+      }
+
+      .relation-heading {
+        margin: 0 0 9px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .relation-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .relation-item {
+        min-width: 0;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+
+      .relation-pair {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 5px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .relation-kind {
+        flex: 0 0 auto;
+        padding: 1px 7px 2px;
+        border-radius: 999px;
+        color: var(--green);
+        background: var(--green-soft);
+        font-weight: 600;
+      }
+
+      .relation-item[data-kind="克"] .relation-kind {
+        color: var(--red);
+        background: var(--red-soft);
+      }
+
+      .relation-item[data-kind="比和"] .relation-kind {
+        color: var(--muted);
+        background: var(--paper-deep);
+      }
+
+      .relation-flow {
+        color: var(--ink);
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.55;
+      }
+
+      .relation-arrow {
+        margin: 0 4px;
+        color: var(--green);
+      }
+
+      .relation-item[data-kind="克"] .relation-arrow { color: var(--red); }
+      .relation-item[data-kind="比和"] .relation-arrow { color: var(--muted); }
+
+      .palace-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+      }
+
+      .palace-item {
+        min-width: 0;
+        padding: 13px 16px 14px;
+      }
+
+      .palace-item + .palace-item { border-left: 1px solid var(--line); }
+
+      .palace-value {
+        display: flex;
+        align-items: baseline;
+        gap: 7px;
+        color: var(--ink);
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .element {
+        color: var(--red);
+        font-size: 14px;
+      }
+
+      .palace-detail {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .palace-facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        margin: 0;
+      }
+
+      .palace-fact {
+        min-width: 0;
+      }
+
+      .palace-fact dt {
+        margin: 0 0 1px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .palace-fact dd {
+        margin: 0;
+        color: var(--ink);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .palace-meaning,
+      .palace-verse {
+        margin: 11px 0 0;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .palace-meaning {
+        color: var(--ink);
+      }
+
+      .palace-verse {
+        padding-top: 10px;
+        border-top: 1px dashed var(--line-strong);
+        color: var(--muted);
+        font-family: "Noto Serif SC", "Songti SC", serif;
+      }
+
+      .detail-key {
+        margin-right: 6px;
+        color: var(--red);
+        font-weight: 600;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .action {
+        min-height: 48px;
+        border: 1px solid var(--line-strong);
+        border-radius: 7px;
+        color: var(--ink);
+        background: var(--surface);
+        cursor: pointer;
+      }
+
+      .action:focus-visible,
+      .zone-switch button:focus-visible {
+        outline: 3px solid var(--red-soft);
+        outline-offset: 2px;
+      }
+
+      .status {
+        min-height: 20px;
+        margin: -2px 0 0;
+        color: var(--muted);
+        text-align: center;
+        font-size: 12px;
+      }
+
+      .manual {
+        border: 1px solid var(--line-strong);
+        border-radius: 9px 9px 22px 9px;
+        background: var(--surface);
+        box-shadow: 0 16px 40px var(--shadow);
+      }
+
+      .manual-head {
+        padding: 16px 16px 4px;
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .manual-form {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+        align-items: end;
+        gap: 10px;
+        padding: 10px 16px 14px;
+      }
+
+      .manual-form label {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .manual-form input {
+        width: 100%;
+        margin-top: 4px;
+        padding: 9px 10px;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        color: var(--ink);
+        background: var(--paper);
+        font: inherit;
+        font-size: 16px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .manual-form .action {
+        min-height: 42px;
+        padding: 0 18px;
+        color: #fffaf2;
+        background: var(--red);
+        border-color: var(--red);
+      }
+
+      .manual-hint {
+        min-height: 18px;
+        margin: 0;
+        padding: 0 16px 10px;
+        color: var(--red);
+        font-size: 12px;
+      }
+
+      #manual-result[hidden] { display: none; }
+
+      .manual-reduced {
+        margin: 0;
+        padding: 0 16px 12px;
+        color: var(--muted);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      #manual-result .palace-row { border-top: 1px solid var(--line); }
+
+      .record-btn { width: calc(100% - 32px); margin: 0 16px 16px; }
+
+      .advice { padding: 14px 16px 6px; border-top: 1px solid var(--line); }
+      .advice-cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+      .advice-cats button { padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--muted); background: transparent; font: inherit; font-size: 13px; cursor: pointer; }
+      .advice-cats button[aria-pressed="true"] { color: #fffaf2; background: var(--red); border-color: var(--red); }
+      .advice-main { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 17px; line-height: 1.7; }
+      .advice-label { margin: 10px 0 2px; color: var(--muted); font-size: 12px; }
+      .advice-ref { margin: 0; color: var(--muted); font-size: 13px; white-space: pre-line; }
+      .advice-summary { margin: 10px 0 0; font-size: 14px; }
+      .advice-note { margin: 8px 0 10px; color: var(--muted); font-size: 12px; }
+
+      .history { border-top: 1px solid var(--line); }
+      .history summary { padding: 14px 16px; font-size: 13px; cursor: pointer; }
+      .history-hint { margin: 0; padding: 0 16px 8px; color: var(--red); font-size: 11px; }
+      .history-empty { margin: 0; padding: 0 16px 14px; color: var(--muted); font-size: 12px; }
+      .history-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 10px; padding: 10px 16px; border-top: 1px solid var(--line); }
+      .history-name { min-width: 0; padding: 6px 8px; border: 1px solid transparent; border-radius: 6px; color: var(--ink); background: transparent; font: inherit; font-size: 14px; }
+      .history-name:focus { border-color: var(--line-strong); background: var(--paper); }
+      .history-del { padding: 4px 10px; border: 1px solid var(--line-strong); border-radius: 6px; color: var(--muted); background: transparent; font: inherit; font-size: 11px; cursor: pointer; }
+      .history-open { grid-column: 1 / -1; padding: 2px 8px; border: 0; color: var(--muted); background: transparent; font: inherit; font-size: 11px; text-align: left; font-variant-numeric: tabular-nums; cursor: pointer; }
+      .history-open span { display: block; }
+      #history-clear { width: calc(100% - 32px); min-height: 40px; margin: 8px 16px 16px; }
+
+      .source-note { margin: 0; color: var(--muted); font-size: 12px; text-align: center; }
+
+      .fold > summary { display: flex; justify-content: space-between; align-items: center; gap: 8px; cursor: pointer; list-style: none; }
+      .fold > summary::-webkit-details-marker { display: none; }
+      .fold > summary::after { content: "▾"; color: var(--muted); font-size: 12px; }
+      .fold:not([open]) > summary::after { content: "▸"; }
+      .fold > summary:focus-visible { outline: 3px solid var(--red-soft); outline-offset: 2px; }
+      .fold-title { padding: 10px 16px; color: var(--muted); font-size: 13px; }
+      .calendar > .fold > .fold-title { padding: 0 0 12px; }
+
+      .app-title { margin: 0; font-family: "Noto Serif SC", "Songti SC", serif; font-size: 28px; font-weight: 700; letter-spacing: 0.14em; text-align: center; }
+      .shichen .topline { padding: 6px 16px 12px; }
+      .shichen .calendar { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+      .history-card .history { border-top: 0; }
+
+      .detail-bar { display: flex; align-items: center; gap: 12px; padding: 14px 16px 6px; }
+      .detail-title { min-width: 0; font-family: "Noto Serif SC", "Songti SC", serif; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+      [hidden] { display: none !important; }
+
+      @media (max-width: 520px) {
+        .manual-form { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .manual-form .action { grid-column: 1 / -1; }
+        .page { align-content: start; padding-top: max(18px, env(safe-area-inset-top)); }
+        .topline { align-items: flex-start; }
+        .context { font-size: 12px; }
+        .calendar { padding: 34px 24px 26px; border-radius: 8px 8px 22px 8px; }
+        .calendar::before { inset: 10px; }
+        .lunar-main { margin-top: 22px; }
+        .clock-row { align-items: flex-start; flex-direction: column; gap: 10px; }
+        .solar { max-width: none; text-align: left; }
+        .info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .info-item { padding: 12px 14px; }
+        .info-item:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+        .info-item:nth-child(4) { border-top: 1px solid var(--line); }
+        .info-value { font-size: 16px; }
+        .relation-section { padding: 13px 14px 14px; }
+        .relation-grid { grid-template-columns: 1fr; gap: 8px; }
+        .relation-item { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 14px; }
+        .relation-pair { display: block; margin: 0; }
+        .relation-kind { display: inline-block; margin-top: 4px; }
+        .relation-flow { text-align: right; }
+        .palace-row { grid-template-columns: 1fr; }
+        .palace-item { padding: 16px 14px 18px; }
+        .palace-item + .palace-item { border-left: 0; border-top: 1px solid var(--line); }
+        .palace-value { display: flex; font-size: 17px; }
+        .element { display: inline; margin-top: 0; font-size: 13px; }
+        .palace-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 390px) {
+        .palace-facts { grid-template-columns: 1fr 1fr; }
+      }
+
+      @media (max-width: 360px) {
+        .topline { flex-direction: column; }
+        .zone-switch { width: 100%; }
+        .zone-switch button { flex: 1; }
+        .info-label { font-size: 11px; }
+        .info-value { font-size: 15px; }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .action, .zone-switch button { transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease; }
+        .action:active { transform: translateY(1px); }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1 class="app-title view-main">小六壬</h1>
+
+      <section class="manual view-main" aria-label="报数起课">
+        <details class="fold" open>
+        <summary class="manual-head">报数起课</summary>
+        <form class="manual-form" id="manual-form" novalidate>
+          <label>月数<input id="manual-month" type="number" inputmode="numeric" min="1" step="1" placeholder="1" /></label>
+          <label>日数<input id="manual-day" type="number" inputmode="numeric" min="1" step="1" placeholder="1" /></label>
+          <label>时数<input id="manual-hour" type="number" inputmode="numeric" min="1" step="1" placeholder="1" /></label>
+          <button class="action" type="submit">起课</button>
+        </form>
+        <p class="manual-hint" id="manual-hint" role="status"></p>
+        <div id="manual-result" hidden>
+          <p class="manual-reduced" id="manual-reduced"></p>
+          <details class="relation-section fold" open aria-label="月日时三宫生克关系">
+            <summary class="relation-heading">三宫生克</summary>
+            <div class="relation-grid">
+              <div class="relation-item" id="manual-md-relation" data-kind="比和">
+                <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
+                <div class="relation-flow">—</div>
+              </div>
+              <div class="relation-item" id="manual-dh-relation" data-kind="比和">
+                <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
+                <div class="relation-flow">—</div>
+              </div>
+            </div>
+          </details>
+          <details class="fold" open><summary class="fold-title">三宫详解</summary>
+<div class="palace-row">
+            <div class="palace-item">
+              <span class="info-label">月宫五行</span>
+              <span class="palace-value"><span id="manual-month-palace">—</span><span class="element" id="manual-month-element">—</span></span>
+              <div class="palace-detail" id="manual-month-detail"></div>
+            </div>
+            <div class="palace-item">
+              <span class="info-label">日宫五行</span>
+              <span class="palace-value"><span id="manual-day-palace">—</span><span class="element" id="manual-day-element">—</span></span>
+              <div class="palace-detail" id="manual-day-detail"></div>
+            </div>
+            <div class="palace-item">
+              <span class="info-label">时宫五行</span>
+              <span class="palace-value"><span id="manual-hour-palace">—</span><span class="element" id="manual-hour-element">—</span></span>
+              <div class="palace-detail" id="manual-hour-detail"></div>
+            </div>
+          </div>
+</details>
+          <details class="advice fold" id="manual-advice" open>
+            <summary class="relation-heading">所问之事</summary>
+            <div class="advice-cats" id="advice-cats" role="group" aria-label="所问之事">
+              <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
+              <button type="button" data-cat="失物" aria-pressed="false">失物</button>
+              <button type="button" data-cat="行人" aria-pressed="false">行人</button>
+              <button type="button" data-cat="官事" aria-pressed="false">官事</button>
+              <button type="button" data-cat="病" aria-pressed="false">病者</button>
+            </div>
+            <p class="advice-main" id="advice-main"></p>
+            <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
+            <p class="advice-ref" id="advice-ref"></p>
+          </details>
+          <details class="advice fold" id="manual-summary" open>
+            <summary class="relation-heading">总结</summary>
+            <p class="advice-summary" id="advice-summary"></p>
+            <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
+          </details>
+          <button class="action record-btn" id="manual-record" type="button">记录结果</button>
+        </div>
+        </details>
+      </section>
+
+      <section class="manual shichen view-main" aria-label="时辰起课">
+        <details class="fold" open>
+        <summary class="manual-head">时辰起课</summary>
+      <div class="topline">
+        <div class="context">
+          <strong id="moment-label">此刻 · 美东时间</strong>
+          <span id="zone-label">America/New_York</span>
+        </div>
+        <div class="zone-switch" role="group" aria-label="时区">
+          <button type="button" data-zone="America/New_York" aria-pressed="true">美东</button>
+          <button type="button" data-zone="Asia/Shanghai" aria-pressed="false">北京</button>
+        </div>
+      </div>
+
+      <section class="calendar" aria-live="polite" aria-atomic="true">
+        <div class="year-line">
+          <span id="lunar-year">农历</span>
+        </div>
+        <div class="lunar-main">
+          <span class="month" id="lunar-month">—月</span><span class="day" id="lunar-day">——</span>
+        </div>
+        <div class="detail-line">
+          <span id="weekday">星期—</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span id="shichen">—时</span>
+          <span id="shichen-range">（—）</span>
+        </div>
+        <div class="shichen-countdown" aria-live="off">
+          <span>距 <strong id="next-shichen">—时</strong></span>
+          <time id="shichen-countdown" datetime="PT0S">--:--:--</time>
+        </div>
+        <div class="clock-row">
+          <div class="clock" id="clock">--:--:--</div>
+          <div class="solar">
+            <div id="solar-date">公历 —年—月—日</div>
+            <div id="solar-zone">设备本地时间</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-data" aria-label="小六壬起课速查">
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">生肖</span>
+            <span class="info-value" id="zodiac">—</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">干支年</span>
+            <span class="info-value" id="ganzhi">—</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">年支数</span>
+            <span class="info-value" id="year-number">—</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">时辰数</span>
+            <span class="info-value" id="hour-number">—</span>
+          </div>
+        </div>
+        <details class="relation-section fold" open aria-label="月日时三宫生克关系">
+          <summary class="relation-heading">三宫生克</summary>
+          <div class="relation-grid">
+            <div class="relation-item" id="month-day-relation" data-kind="比和">
+              <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
+              <div class="relation-flow">—</div>
+            </div>
+            <div class="relation-item" id="day-hour-relation" data-kind="比和">
+              <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
+              <div class="relation-flow">—</div>
+            </div>
+          </div>
+        </details>
+        <details class="fold" open><summary class="fold-title">三宫详解</summary>
+<div class="palace-row" aria-label="月日时三宫五行">
+          <div class="palace-item">
+            <span class="info-label">月宫五行</span>
+            <span class="palace-value"><span id="month-palace">—</span><span class="element" id="month-element">—</span></span>
+            <div class="palace-detail" id="month-detail" aria-label="月宫六神详解"></div>
+          </div>
+          <div class="palace-item">
+            <span class="info-label">日宫五行</span>
+            <span class="palace-value"><span id="day-palace">—</span><span class="element" id="day-element">—</span></span>
+            <div class="palace-detail" id="day-detail" aria-label="日宫六神详解"></div>
+          </div>
+          <div class="palace-item">
+            <span class="info-label">时宫五行</span>
+            <span class="palace-value"><span id="hour-palace">—</span><span class="element" id="hour-element">—</span></span>
+            <div class="palace-detail" id="hour-detail" aria-label="时宫六神详解"></div>
+          </div>
+        </div>
+</details>
+      </section>
+
+        <div class="shichen-extra">
+          <details class="advice fold" id="sc-advice" open>
+            <summary class="relation-heading">所问之事</summary>
+            <div class="advice-cats" id="sc-advice-cats" role="group" aria-label="所问之事">
+              <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
+              <button type="button" data-cat="失物" aria-pressed="false">失物</button>
+              <button type="button" data-cat="行人" aria-pressed="false">行人</button>
+              <button type="button" data-cat="官事" aria-pressed="false">官事</button>
+              <button type="button" data-cat="病" aria-pressed="false">病者</button>
+            </div>
+            <p class="advice-main" id="sc-advice-main"></p>
+            <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
+            <p class="advice-ref" id="sc-advice-ref"></p>
+          </details>
+          <details class="advice fold" id="sc-summary" open>
+            <summary class="relation-heading">总结</summary>
+            <p class="advice-summary" id="sc-advice-summary"></p>
+            <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
+          </details>
+          <button class="action record-btn" id="shichen-record" type="button">记录结果</button>
+        </div>
+        </details>
+      </section>
+
+      <section class="manual history-card view-main" aria-label="历史">
+        <details class="history" id="history">
+          <summary>历史<span id="history-count"></span></summary>
+          <p class="history-hint" id="history-hint" role="status"></p>
+          <div id="history-list"></div>
+          <button class="action" id="history-clear" type="button" hidden>清空全部</button>
+        </details>
+      </section>
+
+      <section class="manual detail-view" id="detail-view" aria-label="记录详情" hidden>
+        <div class="detail-bar">
+          <button class="history-del" id="detail-back" type="button">‹ 返回</button>
+          <span class="detail-title" id="detail-title"></span>
+        </div>
+          <p class="manual-reduced" id="hd-reduced"></p>
+          <details class="relation-section fold" open aria-label="月日时三宫生克关系">
+            <summary class="relation-heading">三宫生克</summary>
+            <div class="relation-grid">
+              <div class="relation-item" id="hd-md-relation" data-kind="比和">
+                <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
+                <div class="relation-flow">—</div>
+              </div>
+              <div class="relation-item" id="hd-dh-relation" data-kind="比和">
+                <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
+                <div class="relation-flow">—</div>
+              </div>
+            </div>
+          </details>
+          <details class="fold" open><summary class="fold-title">三宫详解</summary>
+<div class="palace-row">
+            <div class="palace-item">
+              <span class="info-label">月宫五行</span>
+              <span class="palace-value"><span id="hd-month-palace">—</span><span class="element" id="hd-month-element">—</span></span>
+              <div class="palace-detail" id="hd-month-detail"></div>
+            </div>
+            <div class="palace-item">
+              <span class="info-label">日宫五行</span>
+              <span class="palace-value"><span id="hd-day-palace">—</span><span class="element" id="hd-day-element">—</span></span>
+              <div class="palace-detail" id="hd-day-detail"></div>
+            </div>
+            <div class="palace-item">
+              <span class="info-label">时宫五行</span>
+              <span class="palace-value"><span id="hd-hour-palace">—</span><span class="element" id="hd-hour-element">—</span></span>
+              <div class="palace-detail" id="hd-hour-detail"></div>
+            </div>
+          </div>
+</details>
+          <details class="advice fold" id="hd-advice" open>
+            <summary class="relation-heading">所问之事</summary>
+            <div class="advice-cats" id="hd-advice-cats" role="group" aria-label="所问之事">
+              <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
+              <button type="button" data-cat="失物" aria-pressed="false">失物</button>
+              <button type="button" data-cat="行人" aria-pressed="false">行人</button>
+              <button type="button" data-cat="官事" aria-pressed="false">官事</button>
+              <button type="button" data-cat="病" aria-pressed="false">病者</button>
+            </div>
+            <p class="advice-main" id="hd-advice-main"></p>
+            <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
+            <p class="advice-ref" id="hd-advice-ref"></p>
+          </details>
+          <details class="advice fold" id="hd-summary" open>
+            <summary class="relation-heading">总结</summary>
+            <p class="advice-summary" id="hd-advice-summary"></p>
+            <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
+          </details>
+      </section>
+
+      <p class="source-note view-main">「玉匣记」歌诀出自《玉匣记》整理本（维基文库，底本未核），非刻本影印。</p>
+    </main>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var selectedZone = "America/New_York";
+        var lunarDayNames = ["", "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十"];
+        var zodiacByBranch = { "子": "鼠", "丑": "牛", "寅": "虎", "卯": "兔", "辰": "龙", "巳": "蛇", "午": "马", "未": "羊", "申": "猴", "酉": "鸡", "戌": "狗", "亥": "猪" };
+        var hourBranches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        var lunarMonthNumbers = { "正月": 1, "二月": 2, "三月": 3, "四月": 4, "五月": 5, "六月": 6, "七月": 7, "八月": 8, "九月": 9, "十月": 10, "十一月": 11, "十二月": 12, "冬月": 11, "腊月": 12 };
+        var palaces = [
+          {
+            name: "大安", element: "木", timeMeaning: "身不动时", direction: "东方", color: "青色", symbol: "青龙", numbers: "1、5、7",
+            meaning: "静止、心安、吉祥之意",
+            verse: "大安事事昌，求谋在神方，失物去不远，宅舍保安康，行人身未动，病者主无妨，将军回田野，仔细与推详。",
+            by: { "财": "求谋在神方", "失物": "失物去不远", "行人": "行人身未动", "病": "病者主无妨" }
+          },
+          {
+            name: "留连", element: "水", timeMeaning: "人未归时", direction: "北方", color: "黑色", symbol: "玄武", numbers: "2、8、10",
+            meaning: "暧昧不明、延迟、纠缠、拖延、漫长之意",
+            verse: "留连事难成，求谋日示明，官事只宜缓，去者未回程，失物南方见，急讨方称心，更须防口舌，人口且平平。",
+            by: { "财": "求谋日示明", "失物": "失物南方见，急讨方称心", "行人": "去者未回程", "官事": "官事只宜缓" }
+          },
+          {
+            name: "速喜", element: "火", timeMeaning: "人即至时", direction: "南方", color: "红色", symbol: "朱雀", numbers: "3、6、9",
+            meaning: "快速、吉利、时机已到之意",
+            verse: "速喜喜来临，求财向南行，失物申未午，逢人路上寻，官事有福德，病者无祸侵，田定（疑为宅）六畜吉，行人有信音。",
+            by: { "财": "求财向南行", "失物": "失物申未午", "行人": "行人有信音", "官事": "官事有福德", "病": "病者无祸侵" }
+          },
+          {
+            name: "赤口", element: "金", timeMeaning: "官事凶时", direction: "西方", color: "白色", symbol: "白虎", numbers: "4、7、10",
+            meaning: "不吉、惊恐、凶险、口舌是非之意",
+            verse: "赤日（疑为口）主口舌，官非切要防，失物急去寻，行人有惊慌，鸡犬多作怪，病者出西方，更须访（疑为防）咒诅，恐怕染瘟癀。",
+            by: { "失物": "失物急去寻", "行人": "行人有惊慌", "官事": "官非切要防", "病": "病者出西方" }
+          },
+          {
+            name: "小吉", element: "木", timeMeaning: "人来喜时", direction: "西南（坤方）", color: "青色", symbol: "六合", numbers: "1、5、7",
+            meaning: "和合、吉利之意",
+            verse: "小吉最吉昌，路上好商量，阴人来报喜，失物在坤方，行人立便至，交关甚是强，凡事皆和合，病者祷上苍。",
+            by: { "财": "交关甚是强", "失物": "失物在坤方", "行人": "行人立便至", "病": "病者祷上苍" }
+          },
+          {
+            name: "空亡", element: "土", timeMeaning: "音信稀时", direction: "中央", color: "黄色", symbol: "勾陈", numbers: "1、5、7",
+            meaning: "不吉、无果之意",
+            verse: "空亡事不长，阴人小乖张，求财无利益，行人有灾殃，失物寻不见，官事有刑场（疑为伤），病人逢暗鬼，禳解保安康。",
+            by: { "财": "求财无利益", "失物": "失物寻不见", "行人": "行人有灾殃", "官事": "官事有刑场", "病": "病人逢暗鬼，禳解保安康" }
+          }
+        ];
+        var numberNames = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+        var generates = { "木": "火", "火": "土", "土": "金", "金": "水", "水": "木" };
+        var controls = { "木": "土", "土": "水", "水": "火", "火": "金", "金": "木" };
+
+        function el(id) { return document.getElementById(id); }
+
+        function partsToObject(formatter, date) {
+          var out = {};
+          formatter.formatToParts(date).forEach(function (part) {
+            if (part.type !== "literal") out[part.type] = part.value;
+          });
+          return out;
+        }
+
+        function optionsWithZone(options) {
+          var copy = {};
+          Object.keys(options).forEach(function (key) { copy[key] = options[key]; });
+          copy.timeZone = selectedZone;
+          return copy;
+        }
+
+        function getHour(date) {
+          var hourFormatter = new Intl.DateTimeFormat("en-GB", optionsWithZone({ hour: "2-digit", hourCycle: "h23" }));
+          return Number(partsToObject(hourFormatter, date).hour);
+        }
+
+        function chineseYear(year) {
+          return String(year).split("").map(function (n) { return numberNames[Number(n)]; }).join("");
+        }
+
+        function shichenForHour(hour) {
+          var index = Math.floor(((hour + 1) % 24) / 2);
+          var branch = hourBranches[index];
+          var start = index === 0 ? 23 : index * 2 - 1;
+          var end = (start + 1) % 24;
+          var pad = function (n) { return String(n).padStart(2, "0"); };
+          return { branch: branch, number: index + 1, range: pad(start) + ":00–" + pad(end) + ":59" };
+        }
+
+        function shichenCountdown(date) {
+          var timeParts = partsToObject(new Intl.DateTimeFormat("en-GB", optionsWithZone({ hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" })), date);
+          var hour = Number(timeParts.hour);
+          var minute = Number(timeParts.minute);
+          var second = Number(timeParts.second);
+          var current = shichenForHour(hour);
+          var remaining = (hour % 2 === 1 ? 7200 : 3600) - minute * 60 - second;
+          var nextIndex = hourBranches.indexOf(current.branch) + 1;
+          var pad = function (n) { return String(n).padStart(2, "0"); };
+          return {
+            nextBranch: hourBranches[nextIndex % 12],
+            seconds: remaining,
+            text: pad(Math.floor(remaining / 3600)) + ":" + pad(Math.floor((remaining % 3600) / 60)) + ":" + pad(remaining % 60)
+          };
+        }
+
+        function lunarMonthNumber(monthName) {
+          var normalized = String(monthName || "").replace(/^闰/, "");
+          return lunarMonthNumbers[normalized] || 1;
+        }
+
+        function palaceSequence(monthNumber, dayNumber, hourNumber) {
+          var monthIndex = (monthNumber - 1) % 6;
+          var dayIndex = (monthIndex + dayNumber - 1) % 6;
+          var hourIndex = (dayIndex + hourNumber - 1) % 6;
+          return {
+            month: palaces[monthIndex],
+            day: palaces[dayIndex],
+            hour: palaces[hourIndex]
+          };
+        }
+
+        function elementRelation(leftLabel, leftPalace, rightLabel, rightPalace) {
+          var leftElement = leftPalace.element;
+          var rightElement = rightPalace.element;
+          if (leftElement === rightElement) {
+            return {
+              kind: "比和",
+              sourceLabel: leftLabel,
+              sourceElement: leftElement,
+              verb: "同气",
+              targetLabel: rightLabel,
+              targetElement: rightElement,
+              spoken: leftLabel + "与" + rightLabel + "同属" + leftElement + "，五行比和"
+            };
+          }
+          if (generates[leftElement] === rightElement) {
+            return { kind: "生", sourceLabel: leftLabel, sourceElement: leftElement, verb: "生", targetLabel: rightLabel, targetElement: rightElement, spoken: leftLabel + leftElement + "生" + rightLabel + rightElement };
+          }
+          if (generates[rightElement] === leftElement) {
+            return { kind: "生", sourceLabel: rightLabel, sourceElement: rightElement, verb: "生", targetLabel: leftLabel, targetElement: leftElement, spoken: rightLabel + rightElement + "生" + leftLabel + leftElement };
+          }
+          if (controls[leftElement] === rightElement) {
+            return { kind: "克", sourceLabel: leftLabel, sourceElement: leftElement, verb: "克", targetLabel: rightLabel, targetElement: rightElement, spoken: leftLabel + leftElement + "克" + rightLabel + rightElement };
+          }
+          return { kind: "克", sourceLabel: rightLabel, sourceElement: rightElement, verb: "克", targetLabel: leftLabel, targetElement: leftElement, spoken: rightLabel + rightElement + "克" + leftLabel + leftElement };
+        }
+
+        function renderRelation(containerId, relation) {
+          var container = el(containerId);
+          container.setAttribute("data-kind", relation.kind);
+          container.querySelector(".relation-kind").textContent = relation.kind === "生" ? "相生" : relation.kind === "克" ? "相克" : "比和";
+          var flow = container.querySelector(".relation-flow");
+          flow.replaceChildren();
+          if (relation.kind === "比和") {
+            flow.appendChild(document.createTextNode(relation.sourceLabel + " " + relation.sourceElement));
+            var harmony = document.createElement("span");
+            harmony.className = "relation-arrow";
+            harmony.textContent = " ＝同气＝ ";
+            flow.appendChild(harmony);
+            flow.appendChild(document.createTextNode(relation.targetLabel + " " + relation.targetElement));
+          } else {
+            flow.appendChild(document.createTextNode(relation.sourceLabel + " " + relation.sourceElement));
+            var arrow = document.createElement("span");
+            arrow.className = "relation-arrow";
+            arrow.textContent = " ─" + relation.verb + "→ ";
+            flow.appendChild(arrow);
+            flow.appendChild(document.createTextNode(relation.targetLabel + " " + relation.targetElement));
+          }
+        }
+
+        function renderPalaceDetail(containerId, palace) {
+          var container = el(containerId);
+          if (container.getAttribute("data-palace") === palace.name) return;
+
+          var facts = [
+            ["时义", palace.timeMeaning],
+            ["五行", palace.element],
+            ["方位", palace.direction],
+            ["颜色", palace.color],
+            ["神兽", palace.symbol],
+            ["数字", palace.numbers]
+          ];
+          var list = document.createElement("dl");
+          list.className = "palace-facts";
+          facts.forEach(function (fact) {
+            var wrapper = document.createElement("div");
+            var term = document.createElement("dt");
+            var description = document.createElement("dd");
+            wrapper.className = "palace-fact";
+            term.textContent = fact[0];
+            description.textContent = fact[1];
+            wrapper.appendChild(term);
+            wrapper.appendChild(description);
+            list.appendChild(wrapper);
+          });
+
+          var meaning = document.createElement("p");
+          meaning.className = "palace-meaning";
+          var meaningKey = document.createElement("span");
+          meaningKey.className = "detail-key";
+          meaningKey.textContent = "含义";
+          meaning.appendChild(meaningKey);
+          meaning.appendChild(document.createTextNode(palace.meaning));
+
+          var verse = document.createElement("p");
+          verse.className = "palace-verse";
+          var verseKey = document.createElement("span");
+          verseKey.className = "detail-key";
+          verseKey.textContent = "玉匣记";
+          verse.appendChild(verseKey);
+          verse.appendChild(document.createTextNode(palace.verse));
+
+          container.replaceChildren(list, meaning, verse);
+          container.setAttribute("data-palace", palace.name);
+        }
+
+        function zoneDescription(date) {
+          if (selectedZone === "Asia/Shanghai") return "中国标准时间 · UTC+8";
+          var shortName = partsToObject(new Intl.DateTimeFormat("zh-CN", { timeZone: selectedZone, timeZoneName: "short" }), date).timeZoneName || "美东时间";
+          return "America/New_York · " + shortName;
+        }
+
+        function refresh() {
+          var now = new Date();
+          var solarParts = partsToObject(new Intl.DateTimeFormat("zh-CN", optionsWithZone({ year: "numeric", month: "numeric", day: "numeric", weekday: "long" })), now);
+          var lunarParts = partsToObject(new Intl.DateTimeFormat("zh-CN-u-ca-chinese", optionsWithZone({ calendar: "chinese", year: "numeric", month: "long", day: "numeric" })), now);
+          var clock = new Intl.DateTimeFormat("zh-CN", optionsWithZone({ hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" })).format(now);
+          var hourInfo = shichenForHour(getHour(now));
+          var countdown = shichenCountdown(now);
+          var ganzhi = lunarParts.yearName || "—";
+          var yearBranch = ganzhi.slice(-1);
+          var yearNumber = hourBranches.indexOf(yearBranch) + 1;
+          var zodiac = zodiacByBranch[yearBranch] || "—";
+          var lunarDayNumber = Number(lunarParts.day) || 1;
+          var lunarDay = lunarDayNames[lunarDayNumber] || lunarParts.day;
+          var relatedYear = lunarParts.relatedYear || solarParts.year;
+          var month = lunarParts.month || "—月";
+          var monthNumber = lunarMonthNumber(month);
+          var sequence = palaceSequence(monthNumber, lunarDayNumber, hourInfo.number);
+          var monthDayRelation = elementRelation("月宫", sequence.month, "日宫", sequence.day);
+          var dayHourRelation = elementRelation("日宫", sequence.day, "时宫", sequence.hour);
+          var zoneText = zoneDescription(now);
+
+          el("moment-label").textContent = "此刻 · " + (selectedZone === "America/New_York" ? "美东时间" : "北京时间");
+          el("zone-label").textContent = zoneText;
+          el("lunar-year").textContent = "农历 " + chineseYear(relatedYear) + " · " + ganzhi + zodiac + "年";
+          el("lunar-month").textContent = month;
+          el("lunar-day").textContent = lunarDay;
+          el("weekday").textContent = solarParts.weekday;
+          el("shichen").textContent = hourInfo.branch + "时";
+          el("shichen-range").textContent = "（" + hourInfo.range + "）";
+          el("next-shichen").textContent = countdown.nextBranch + "时";
+          el("shichen-countdown").textContent = countdown.text;
+          el("shichen-countdown").setAttribute("datetime", "PT" + countdown.seconds + "S");
+          el("clock").textContent = clock;
+          el("solar-date").textContent = "公历 " + solarParts.year + "年" + solarParts.month + "月" + solarParts.day + "日";
+          el("solar-zone").textContent = zoneText;
+          el("zodiac").textContent = zodiac;
+          el("ganzhi").textContent = ganzhi + "年";
+          el("year-number").textContent = yearBranch + " · " + (yearNumber || "—");
+          el("hour-number").textContent = hourInfo.branch + " · " + hourInfo.number;
+          el("month-palace").textContent = sequence.month.name;
+          el("month-element").textContent = sequence.month.element;
+          el("day-palace").textContent = sequence.day.name;
+          el("day-element").textContent = sequence.day.element;
+          el("hour-palace").textContent = sequence.hour.name;
+          el("hour-element").textContent = sequence.hour.element;
+          renderRelation("month-day-relation", monthDayRelation);
+          renderRelation("day-hour-relation", dayHourRelation);
+          renderPalaceDetail("month-detail", sequence.month);
+          renderPalaceDetail("day-detail", sequence.day);
+          renderPalaceDetail("hour-detail", sequence.hour);
+          scopes.shichen.cast = { m: monthNumber, d: lunarDayNumber, h: hourInfo.number, seq: sequence, md: monthDayRelation, dh: dayHourRelation };
+          renderAdvice(scopes.shichen);
+          document.title = "小六壬";
+        }
+
+        function reduceToSix(n) {
+          return ((n - 1) % 6) + 1;
+        }
+
+        function parsePositiveInt(value) {
+          var text = String(value).trim();
+          if (!/^\d{1,9}$/.test(text)) return null;
+          var n = Number(text);
+          return n >= 1 ? n : null;
+        }
+
+        var categories = { "财": "求财谋事", "失物": "失物", "行人": "行人", "官事": "官事", "病": "病者" };
+        var auspicious = { "大安": true, "速喜": true, "小吉": true };
+        var NO_VERSE = "歌诀未涉及此事";
+        var HISTORY_KEY = "xlr-history-v1";
+        var HISTORY_MAX = 50;
+        var scopes = { manual: { p: "", cat: "财", cast: null }, shichen: { p: "sc-", cat: "财", cast: null }, detail: { p: "hd-", cat: "财", cast: null, id: null } };
+        var historyFailed = false;
+
+        function buildCast(m, d, h) {
+          var rm = reduceToSix(m), rd = reduceToSix(d), rh = reduceToSix(h);
+          var seq = palaceSequence(rm, rd, rh);
+          return {
+            m: m, d: d, h: h, rm: rm, rd: rd, rh: rh, seq: seq,
+            md: elementRelation("月宫", seq.month, "日宫", seq.day),
+            dh: elementRelation("日宫", seq.day, "时宫", seq.hour)
+          };
+        }
+
+        function adviceFor(seq, md, dh, cat) {
+          var pick = function (p) { return (p.by && p.by[cat]) || NO_VERSE; };
+          var good = [seq.month, seq.day, seq.hour].filter(function (p) { return auspicious[p.name]; }).length;
+          return {
+            main: { palace: seq.hour.name, text: pick(seq.hour) },
+            refs: [
+              { label: "月宫", palace: seq.month.name, text: pick(seq.month) },
+              { label: "日宫", palace: seq.day.name, text: pick(seq.day) }
+            ],
+            summary: "时宫" + (auspicious[seq.hour.name] ? "吉" : "凶") + "；三宫共 " + good + " 吉 " + (3 - good) + " 凶；" + md.spoken + "，" + dh.spoken
+          };
+        }
+
+        function setText(node, text) {
+          if (node.textContent !== text) node.textContent = text;
+        }
+
+        function renderAdvice(scope) {
+          var c = scope.cast;
+          if (!c) return;
+          el(scope.p + "advice-cats").querySelectorAll("[data-cat]").forEach(function (button) {
+            var on = String(button.getAttribute("data-cat") === scope.cat);
+            if (button.getAttribute("aria-pressed") !== on) button.setAttribute("aria-pressed", on);
+          });
+          var a = adviceFor(c.seq, c.md, c.dh, scope.cat);
+          setText(el(scope.p + "advice-main"), "时宫" + a.main.palace + "：" + a.main.text);
+          setText(el(scope.p + "advice-ref"), a.refs.map(function (r) { return r.label + r.palace + "：" + r.text; }).join("\n"));
+          setText(el(scope.p + "advice-summary"), a.summary);
+        }
+
+        function showCast(cast, pfx, scope) {
+          el(pfx + "-reduced").textContent = "月数 " + cast.m + " → " + cast.rm + "　日数 " + cast.d + " → " + cast.rd + "　时数 " + cast.h + " → " + cast.rh + "（大于 6 取除以 6 的余数，整除取 6）";
+          [["month", cast.seq.month], ["day", cast.seq.day], ["hour", cast.seq.hour]].forEach(function (item) {
+            el(pfx + "-" + item[0] + "-palace").textContent = item[1].name;
+            el(pfx + "-" + item[0] + "-element").textContent = item[1].element;
+            renderPalaceDetail(pfx + "-" + item[0] + "-detail", item[1]);
+          });
+          renderRelation(pfx + "-md-relation", cast.md);
+          renderRelation(pfx + "-dh-relation", cast.dh);
+          scope.cast = cast;
+          renderAdvice(scope);
+        }
+
+        function setView(detail) {
+          document.querySelectorAll(".view-main").forEach(function (node) { node.hidden = detail; });
+          el("detail-view").hidden = !detail;
+          window.scrollTo(0, 0);
+        }
+
+        function openDetail(rec) {
+          var scope = scopes.detail;
+          scope.cat = categories[rec.cat] ? rec.cat : "财";
+          scope.id = rec.id;
+          el("detail-title").textContent = (rec.name || fmtTime(rec.ts)) + (rec.kind ? " · " + rec.kind : "");
+          showCast(buildCast(rec.m, rec.d, rec.h), "hd", scope);
+          setView(true);
+        }
+
+        function loadHistory() {
+          try {
+            var raw = JSON.parse(window.localStorage.getItem(HISTORY_KEY) || "[]");
+            if (!Array.isArray(raw)) return [];
+            return raw.filter(function (r) {
+              return r && typeof r.id === "string" && typeof r.ts === "number" && typeof r.name === "string" &&
+                Number.isInteger(r.m) && r.m >= 1 && Number.isInteger(r.d) && r.d >= 1 && Number.isInteger(r.h) && r.h >= 1;
+            });
+          } catch (e) {
+            historyFailed = true;
+            return [];
+          }
+        }
+
+        function saveHistory(list) {
+          try {
+            window.localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function addHistory(m, d, h, cat, kind) {
+          var rec = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ts: Date.now(), m: m, d: d, h: h, name: "", cat: cat, kind: kind };
+          var list = loadHistory();
+          list.unshift(rec);
+          historyFailed = !saveHistory(list.slice(0, HISTORY_MAX));
+          renderHistory();
+        }
+
+        function recordScope(scope, kind, button) {
+          var c = scope.cast;
+          if (!c) return;
+          addHistory(c.m, c.d, c.h, scope.cat, kind);
+          setText(button, historyFailed ? "无法保存" : "已记录");
+          window.clearTimeout(button.reset);
+          button.reset = window.setTimeout(function () { setText(button, "记录结果"); }, 1500);
+        }
+
+        function updateHistory(id, patch) {
+          var list = loadHistory();
+          list.forEach(function (r) { if (r.id === id) Object.keys(patch).forEach(function (k) { r[k] = patch[k]; }); });
+          historyFailed = !saveHistory(list);
+          el("history-hint").textContent = historyFailed ? "本机无法保存历史" : "";
+        }
+
+        function fmtTime(ts) {
+          var f = new Intl.DateTimeFormat("zh-CN", optionsWithZone({ year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }));
+          return f.format(new Date(ts)) + (selectedZone === "America/New_York" ? " 美东" : " 北京");
+        }
+
+        function renderHistory() {
+          var list = loadHistory();
+          var box = el("history-list");
+          el("history-count").textContent = list.length ? "（" + list.length + "）" : "";
+          el("history-hint").textContent = historyFailed ? "本机无法保存历史" : "";
+          el("history-clear").hidden = list.length === 0;
+          box.replaceChildren();
+          if (!list.length) {
+            var empty = document.createElement("p");
+            empty.className = "history-empty";
+            empty.textContent = "还没有记录";
+            box.appendChild(empty);
+            return;
+          }
+          list.forEach(function (rec) {
+            var seq = palaceSequence(reduceToSix(rec.m), reduceToSix(rec.d), reduceToSix(rec.h));
+            var item = document.createElement("div");
+            item.className = "history-item";
+
+            var name = document.createElement("input");
+            name.className = "history-name";
+            name.type = "text";
+            name.maxLength = 30;
+            name.placeholder = "未命名，点此命名";
+            name.value = rec.name;
+            name.setAttribute("aria-label", "记录名称");
+            name.addEventListener("change", function () {
+              name.value = name.value.trim();
+              updateHistory(rec.id, { name: name.value });
+            });
+            name.addEventListener("keydown", function (event) { if (event.key === "Enter") name.blur(); });
+
+            var del = document.createElement("button");
+            del.className = "history-del";
+            del.type = "button";
+            del.textContent = "删除";
+            del.addEventListener("click", function () {
+              historyFailed = !saveHistory(loadHistory().filter(function (r) { return r.id !== rec.id; }));
+              renderHistory();
+            });
+
+            var open = document.createElement("button");
+            open.className = "history-open";
+            open.type = "button";
+            var when = document.createElement("span");
+            when.textContent = fmtTime(rec.ts);
+            var what = document.createElement("span");
+            what.textContent = (rec.kind ? rec.kind + " · " : "") + "月" + rec.m + "·日" + rec.d + "·时" + rec.h + " → " + seq.month.name + "·" + seq.day.name + "·" + seq.hour.name;
+            open.appendChild(when);
+            open.appendChild(what);
+            open.addEventListener("click", function () { openDetail(rec); });
+
+            item.appendChild(name);
+            item.appendChild(del);
+            item.appendChild(open);
+            box.appendChild(item);
+          });
+        }
+
+        function castManual(event) {
+          event.preventDefault();
+          var m = parsePositiveInt(el("manual-month").value);
+          var d = parsePositiveInt(el("manual-day").value);
+          var h = parsePositiveInt(el("manual-hour").value);
+          if (m === null || d === null || h === null) {
+            el("manual-hint").textContent = "请填写三个不小于 1 的整数";
+            el("manual-result").hidden = true;
+            return;
+          }
+          el("manual-hint").textContent = "";
+          showCast(buildCast(m, d, h), "manual", scopes.manual);
+          el("manual-result").hidden = false;
+        }
+
+        el("manual-form").addEventListener("submit", castManual);
+
+        [scopes.manual, scopes.shichen, scopes.detail].forEach(function (scope) {
+          el(scope.p + "advice-cats").querySelectorAll("[data-cat]").forEach(function (button) {
+            button.addEventListener("click", function () {
+              scope.cat = button.getAttribute("data-cat");
+              if (scope.id) updateHistory(scope.id, { cat: scope.cat });
+              renderAdvice(scope);
+            });
+          });
+        });
+
+        el("detail-back").addEventListener("click", function () { scopes.detail.id = null; setView(false); });
+
+        el("manual-record").addEventListener("click", function () { recordScope(scopes.manual, "报数", el("manual-record")); });
+        el("shichen-record").addEventListener("click", function () { recordScope(scopes.shichen, "时辰", el("shichen-record")); });
+
+        el("history-clear").addEventListener("click", function () {
+          var button = el("history-clear");
+          if (button.getAttribute("data-armed") === "1") {
+            window.clearTimeout(button.disarm);
+            button.removeAttribute("data-armed");
+            button.textContent = "清空全部";
+            historyFailed = !saveHistory([]);
+            renderHistory();
+            return;
+          }
+          button.setAttribute("data-armed", "1");
+          button.textContent = "再点一次确认清空";
+          button.disarm = window.setTimeout(function () {
+            button.removeAttribute("data-armed");
+            button.textContent = "清空全部";
+          }, 3000);
+        });
+
+        renderHistory();
+
+        document.querySelectorAll("[data-zone]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            selectedZone = button.getAttribute("data-zone");
+            document.querySelectorAll("[data-zone]").forEach(function (item) {
+              item.setAttribute("aria-pressed", String(item === button));
+            });
+            refresh();
+            renderHistory();
+          });
+        });
+
+        refresh();
+        window.setInterval(refresh, 1000);
+      }());
+    </script>
+  </body>
+</html>
