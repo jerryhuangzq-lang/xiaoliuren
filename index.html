@@ -7,14 +7,10 @@
     <meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171815" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="data:," />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
-        <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="小六壬" />
-    <meta name="theme-color" content="#ffffff" />
     <title>小六壬</title>
     <style>
       :root {
@@ -64,7 +60,7 @@
           linear-gradient(90deg, var(--line) 1px, transparent 1px),
           var(--paper);
         background-size: 28px 28px;
-        font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         -webkit-font-smoothing: antialiased;
       }
 
@@ -167,7 +163,7 @@
         justify-content: center;
         gap: 12px;
         color: var(--muted);
-        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-family: "Songti SC", serif;
         font-size: clamp(14px, 2.6vw, 17px);
       }
 
@@ -184,7 +180,7 @@
         z-index: 1;
         margin: 18px 0 12px;
         text-align: center;
-        font-family: "Noto Serif SC", "Songti SC", STSong, serif;
+        font-family: "Songti SC", STSong, serif;
         font-size: clamp(53px, 12vw, 94px);
         font-weight: 700;
         line-height: 1.12;
@@ -291,7 +287,7 @@
         display: block;
         overflow: hidden;
         color: var(--ink);
-        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-family: "Songti SC", serif;
         font-size: 18px;
         font-weight: 600;
         text-overflow: ellipsis;
@@ -355,7 +351,7 @@
 
       .relation-flow {
         color: var(--ink);
-        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-family: "Songti SC", serif;
         font-size: 14px;
         font-weight: 600;
         line-height: 1.55;
@@ -387,7 +383,7 @@
         align-items: baseline;
         gap: 7px;
         color: var(--ink);
-        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-family: "Songti SC", serif;
         font-size: 17px;
         font-weight: 600;
       }
@@ -442,7 +438,7 @@
         padding-top: 10px;
         border-top: 1px dashed var(--line-strong);
         color: var(--muted);
-        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-family: "Songti SC", serif;
       }
 
       .detail-key {
@@ -489,7 +485,7 @@
 
       .manual-head {
         padding: 16px 16px 4px;
-        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-family: "Songti SC", serif;
         font-size: 18px;
         font-weight: 700;
       }
@@ -547,7 +543,7 @@
         font-variant-numeric: tabular-nums;
       }
 
-      #manual-result .palace-row { border-top: 1px solid var(--line); }
+      .cast .palace-row { border-top: 1px solid var(--line); }
 
       .record-btn { width: calc(100% - 32px); margin: 0 16px 16px; }
 
@@ -555,7 +551,7 @@
       .advice-cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
       .advice-cats button { padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--muted); background: transparent; font: inherit; font-size: 13px; cursor: pointer; }
       .advice-cats button[aria-pressed="true"] { color: #fffaf2; background: var(--red); border-color: var(--red); }
-      .advice-main { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 17px; line-height: 1.7; }
+      .advice-main { font-family: "Songti SC", serif; font-size: 17px; line-height: 1.7; }
       .advice-label { margin: 10px 0 2px; color: var(--muted); font-size: 12px; }
       .advice-ref { margin: 0; color: var(--muted); font-size: 13px; white-space: pre-line; }
       .advice-summary { margin: 10px 0 0; font-size: 14px; }
@@ -583,13 +579,13 @@
       .fold-title { padding: 10px 16px; color: var(--muted); font-size: 13px; }
       .calendar > .fold > .fold-title { padding: 0 0 12px; }
 
-      .app-title { margin: 0; font-family: "Noto Serif SC", "Songti SC", serif; font-size: 28px; font-weight: 700; letter-spacing: 0.14em; text-align: center; }
+      .app-title { margin: 0; font-family: "Songti SC", serif; font-size: 28px; font-weight: 700; letter-spacing: 0.14em; text-align: center; }
       .shichen .topline { padding: 6px 16px 12px; }
       .shichen .calendar { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
       .history-card .history { border-top: 0; }
 
       .detail-bar { display: flex; align-items: center; gap: 12px; padding: 14px 16px 6px; }
-      .detail-title { min-width: 0; font-family: "Noto Serif SC", "Songti SC", serif; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+      .detail-title { min-width: 0; font-family: "Songti SC", serif; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
       [hidden] { display: none !important; }
 
       @media (max-width: 520px) {
@@ -655,57 +651,7 @@
         </form>
         <p class="manual-hint" id="manual-hint" role="status"></p>
         <div id="manual-result" hidden>
-          <p class="manual-reduced" id="manual-reduced"></p>
-          <details class="relation-section fold" open aria-label="月日时三宫生克关系">
-            <summary class="relation-heading">三宫生克</summary>
-            <div class="relation-grid">
-              <div class="relation-item" id="manual-md-relation" data-kind="比和">
-                <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
-                <div class="relation-flow">—</div>
-              </div>
-              <div class="relation-item" id="manual-dh-relation" data-kind="比和">
-                <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
-                <div class="relation-flow">—</div>
-              </div>
-            </div>
-          </details>
-          <details class="fold" open><summary class="fold-title">三宫详解</summary>
-<div class="palace-row">
-            <div class="palace-item">
-              <span class="info-label">月宫五行</span>
-              <span class="palace-value"><span id="manual-month-palace">—</span><span class="element" id="manual-month-element">—</span></span>
-              <div class="palace-detail" id="manual-month-detail"></div>
-            </div>
-            <div class="palace-item">
-              <span class="info-label">日宫五行</span>
-              <span class="palace-value"><span id="manual-day-palace">—</span><span class="element" id="manual-day-element">—</span></span>
-              <div class="palace-detail" id="manual-day-detail"></div>
-            </div>
-            <div class="palace-item">
-              <span class="info-label">时宫五行</span>
-              <span class="palace-value"><span id="manual-hour-palace">—</span><span class="element" id="manual-hour-element">—</span></span>
-              <div class="palace-detail" id="manual-hour-detail"></div>
-            </div>
-          </div>
-</details>
-          <details class="advice fold" id="manual-advice" open>
-            <summary class="relation-heading">所问之事</summary>
-            <div class="advice-cats" id="advice-cats" role="group" aria-label="所问之事">
-              <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
-              <button type="button" data-cat="失物" aria-pressed="false">失物</button>
-              <button type="button" data-cat="行人" aria-pressed="false">行人</button>
-              <button type="button" data-cat="官事" aria-pressed="false">官事</button>
-              <button type="button" data-cat="病" aria-pressed="false">病者</button>
-            </div>
-            <p class="advice-main" id="advice-main"></p>
-            <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
-            <p class="advice-ref" id="advice-ref"></p>
-          </details>
-          <details class="advice fold" id="manual-summary" open>
-            <summary class="relation-heading">总结</summary>
-            <p class="advice-summary" id="advice-summary"></p>
-            <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
-          </details>
+          <div class="cast" id="manual-cast"></div>
           <button class="action record-btn" id="manual-record" type="button">记录结果</button>
         </div>
         </details>
@@ -770,61 +716,10 @@
             <span class="info-value" id="hour-number">—</span>
           </div>
         </div>
-        <details class="relation-section fold" open aria-label="月日时三宫生克关系">
-          <summary class="relation-heading">三宫生克</summary>
-          <div class="relation-grid">
-            <div class="relation-item" id="month-day-relation" data-kind="比和">
-              <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
-              <div class="relation-flow">—</div>
-            </div>
-            <div class="relation-item" id="day-hour-relation" data-kind="比和">
-              <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
-              <div class="relation-flow">—</div>
-            </div>
-          </div>
-        </details>
-        <details class="fold" open><summary class="fold-title">三宫详解</summary>
-<div class="palace-row" aria-label="月日时三宫五行">
-          <div class="palace-item">
-            <span class="info-label">月宫五行</span>
-            <span class="palace-value"><span id="month-palace">—</span><span class="element" id="month-element">—</span></span>
-            <div class="palace-detail" id="month-detail" aria-label="月宫六神详解"></div>
-          </div>
-          <div class="palace-item">
-            <span class="info-label">日宫五行</span>
-            <span class="palace-value"><span id="day-palace">—</span><span class="element" id="day-element">—</span></span>
-            <div class="palace-detail" id="day-detail" aria-label="日宫六神详解"></div>
-          </div>
-          <div class="palace-item">
-            <span class="info-label">时宫五行</span>
-            <span class="palace-value"><span id="hour-palace">—</span><span class="element" id="hour-element">—</span></span>
-            <div class="palace-detail" id="hour-detail" aria-label="时宫六神详解"></div>
-          </div>
-        </div>
-</details>
+        <div class="cast" id="sc-cast"></div>
       </section>
 
-        <div class="shichen-extra">
-          <details class="advice fold" id="sc-advice" open>
-            <summary class="relation-heading">所问之事</summary>
-            <div class="advice-cats" id="sc-advice-cats" role="group" aria-label="所问之事">
-              <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
-              <button type="button" data-cat="失物" aria-pressed="false">失物</button>
-              <button type="button" data-cat="行人" aria-pressed="false">行人</button>
-              <button type="button" data-cat="官事" aria-pressed="false">官事</button>
-              <button type="button" data-cat="病" aria-pressed="false">病者</button>
-            </div>
-            <p class="advice-main" id="sc-advice-main"></p>
-            <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
-            <p class="advice-ref" id="sc-advice-ref"></p>
-          </details>
-          <details class="advice fold" id="sc-summary" open>
-            <summary class="relation-heading">总结</summary>
-            <p class="advice-summary" id="sc-advice-summary"></p>
-            <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
-          </details>
-          <button class="action record-btn" id="shichen-record" type="button">记录结果</button>
-        </div>
+        <button class="action record-btn" id="shichen-record" type="button">记录结果</button>
         </details>
       </section>
 
@@ -842,61 +737,65 @@
           <button class="history-del" id="detail-back" type="button">‹ 返回</button>
           <span class="detail-title" id="detail-title"></span>
         </div>
-          <p class="manual-reduced" id="hd-reduced"></p>
-          <details class="relation-section fold" open aria-label="月日时三宫生克关系">
-            <summary class="relation-heading">三宫生克</summary>
-            <div class="relation-grid">
-              <div class="relation-item" id="hd-md-relation" data-kind="比和">
-                <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
-                <div class="relation-flow">—</div>
-              </div>
-              <div class="relation-item" id="hd-dh-relation" data-kind="比和">
-                <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
-                <div class="relation-flow">—</div>
-              </div>
-            </div>
-          </details>
-          <details class="fold" open><summary class="fold-title">三宫详解</summary>
-<div class="palace-row">
-            <div class="palace-item">
-              <span class="info-label">月宫五行</span>
-              <span class="palace-value"><span id="hd-month-palace">—</span><span class="element" id="hd-month-element">—</span></span>
-              <div class="palace-detail" id="hd-month-detail"></div>
-            </div>
-            <div class="palace-item">
-              <span class="info-label">日宫五行</span>
-              <span class="palace-value"><span id="hd-day-palace">—</span><span class="element" id="hd-day-element">—</span></span>
-              <div class="palace-detail" id="hd-day-detail"></div>
-            </div>
-            <div class="palace-item">
-              <span class="info-label">时宫五行</span>
-              <span class="palace-value"><span id="hd-hour-palace">—</span><span class="element" id="hd-hour-element">—</span></span>
-              <div class="palace-detail" id="hd-hour-detail"></div>
-            </div>
-          </div>
-</details>
-          <details class="advice fold" id="hd-advice" open>
-            <summary class="relation-heading">所问之事</summary>
-            <div class="advice-cats" id="hd-advice-cats" role="group" aria-label="所问之事">
-              <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
-              <button type="button" data-cat="失物" aria-pressed="false">失物</button>
-              <button type="button" data-cat="行人" aria-pressed="false">行人</button>
-              <button type="button" data-cat="官事" aria-pressed="false">官事</button>
-              <button type="button" data-cat="病" aria-pressed="false">病者</button>
-            </div>
-            <p class="advice-main" id="hd-advice-main"></p>
-            <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
-            <p class="advice-ref" id="hd-advice-ref"></p>
-          </details>
-          <details class="advice fold" id="hd-summary" open>
-            <summary class="relation-heading">总结</summary>
-            <p class="advice-summary" id="hd-advice-summary"></p>
-            <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
-          </details>
+        <div class="cast" id="hd-cast"></div>
       </section>
 
       <p class="source-note view-main">「玉匣记」歌诀出自《玉匣记》整理本（维基文库，底本未核），非刻本影印。</p>
     </main>
+
+    <template id="cast-tpl">
+      <p class="manual-reduced" data-slot="reduced"></p>
+      <details class="relation-section fold" open aria-label="月日时三宫生克关系">
+        <summary class="relation-heading">三宫生克</summary>
+        <div class="relation-grid">
+          <div class="relation-item" data-slot="md" data-kind="比和">
+            <div class="relation-pair"><span>月宫 ↔ 日宫</span><span class="relation-kind">—</span></div>
+            <div class="relation-flow">—</div>
+          </div>
+          <div class="relation-item" data-slot="dh" data-kind="比和">
+            <div class="relation-pair"><span>日宫 ↔ 时宫</span><span class="relation-kind">—</span></div>
+            <div class="relation-flow">—</div>
+          </div>
+        </div>
+      </details>
+      <details class="fold" open><summary class="fold-title">三宫详解</summary>
+        <div class="palace-row" aria-label="月日时三宫五行">
+          <div class="palace-item">
+            <span class="info-label">月宫五行</span>
+            <span class="palace-value"><span data-slot="month-palace">—</span><span class="element" data-slot="month-element">—</span></span>
+            <div class="palace-detail" data-slot="month-detail" aria-label="月宫六神详解"></div>
+          </div>
+          <div class="palace-item">
+            <span class="info-label">日宫五行</span>
+            <span class="palace-value"><span data-slot="day-palace">—</span><span class="element" data-slot="day-element">—</span></span>
+            <div class="palace-detail" data-slot="day-detail" aria-label="日宫六神详解"></div>
+          </div>
+          <div class="palace-item">
+            <span class="info-label">时宫五行</span>
+            <span class="palace-value"><span data-slot="hour-palace">—</span><span class="element" data-slot="hour-element">—</span></span>
+            <div class="palace-detail" data-slot="hour-detail" aria-label="时宫六神详解"></div>
+          </div>
+        </div>
+      </details>
+      <details class="advice fold" open>
+        <summary class="relation-heading">所问之事</summary>
+        <div class="advice-cats" data-slot="cats" role="group" aria-label="所问之事">
+          <button type="button" data-cat="财" aria-pressed="true">求财谋事</button>
+          <button type="button" data-cat="失物" aria-pressed="false">失物</button>
+          <button type="button" data-cat="行人" aria-pressed="false">行人</button>
+          <button type="button" data-cat="官事" aria-pressed="false">官事</button>
+          <button type="button" data-cat="病" aria-pressed="false">病者</button>
+        </div>
+        <p class="advice-main" data-slot="main"></p>
+        <p class="advice-label">参考 · 月宫、日宫（后世说法，非玉匣记原文）</p>
+        <p class="advice-ref" data-slot="ref"></p>
+      </details>
+      <details class="advice fold" open>
+        <summary class="relation-heading">总结</summary>
+        <p class="advice-summary" data-slot="summary"></p>
+        <p class="advice-note">玉匣记法：只以时宫推占；月、日宫是递推过程。</p>
+      </details>
+    </template>
 
     <script>
       (function () {
@@ -945,7 +844,6 @@
             by: { "财": "求财无利益", "失物": "失物寻不见", "行人": "行人有灾殃", "官事": "官事有刑场", "病": "病人逢暗鬼，禳解保安康" }
           }
         ];
-        var numberNames = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
         var generates = { "木": "火", "火": "土", "土": "金", "金": "水", "水": "木" };
         var controls = { "木": "土", "土": "水", "水": "火", "火": "金", "金": "木" };
 
@@ -960,41 +858,30 @@
         }
 
         function optionsWithZone(options) {
-          var copy = {};
-          Object.keys(options).forEach(function (key) { copy[key] = options[key]; });
-          copy.timeZone = selectedZone;
-          return copy;
+          return Object.assign({}, options, { timeZone: selectedZone });
         }
 
-        function getHour(date) {
-          var hourFormatter = new Intl.DateTimeFormat("en-GB", optionsWithZone({ hour: "2-digit", hourCycle: "h23" }));
-          return Number(partsToObject(hourFormatter, date).hour);
+        function pad(n) { return String(n).padStart(2, "0"); }
+
+        function timeOf(date) {
+          var t = partsToObject(new Intl.DateTimeFormat("en-GB", optionsWithZone({ hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" })), date);
+          return { hour: Number(t.hour), minute: Number(t.minute), second: Number(t.second) };
         }
 
         function chineseYear(year) {
-          return String(year).split("").map(function (n) { return numberNames[Number(n)]; }).join("");
+          return new Intl.NumberFormat("zh-u-nu-hanidec", { useGrouping: false }).format(year);
         }
 
         function shichenForHour(hour) {
           var index = Math.floor(((hour + 1) % 24) / 2);
-          var branch = hourBranches[index];
           var start = index === 0 ? 23 : index * 2 - 1;
-          var end = (start + 1) % 24;
-          var pad = function (n) { return String(n).padStart(2, "0"); };
-          return { branch: branch, number: index + 1, range: pad(start) + ":00–" + pad(end) + ":59" };
+          return { branch: hourBranches[index], number: index + 1, range: pad(start) + ":00–" + pad((start + 1) % 24) + ":59" };
         }
 
-        function shichenCountdown(date) {
-          var timeParts = partsToObject(new Intl.DateTimeFormat("en-GB", optionsWithZone({ hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" })), date);
-          var hour = Number(timeParts.hour);
-          var minute = Number(timeParts.minute);
-          var second = Number(timeParts.second);
-          var current = shichenForHour(hour);
-          var remaining = (hour % 2 === 1 ? 7200 : 3600) - minute * 60 - second;
-          var nextIndex = hourBranches.indexOf(current.branch) + 1;
-          var pad = function (n) { return String(n).padStart(2, "0"); };
+        function shichenCountdown(t) {
+          var remaining = (t.hour % 2 === 1 ? 7200 : 3600) - t.minute * 60 - t.second;
           return {
-            nextBranch: hourBranches[nextIndex % 12],
+            nextBranch: hourBranches[shichenForHour(t.hour).number % 12],
             seconds: remaining,
             text: pad(Math.floor(remaining / 3600)) + ":" + pad(Math.floor((remaining % 3600) / 60)) + ":" + pad(remaining % 60)
           };
@@ -1017,56 +904,27 @@
         }
 
         function elementRelation(leftLabel, leftPalace, rightLabel, rightPalace) {
-          var leftElement = leftPalace.element;
-          var rightElement = rightPalace.element;
-          if (leftElement === rightElement) {
-            return {
-              kind: "比和",
-              sourceLabel: leftLabel,
-              sourceElement: leftElement,
-              verb: "同气",
-              targetLabel: rightLabel,
-              targetElement: rightElement,
-              spoken: leftLabel + "与" + rightLabel + "同属" + leftElement + "，五行比和"
-            };
-          }
-          if (generates[leftElement] === rightElement) {
-            return { kind: "生", sourceLabel: leftLabel, sourceElement: leftElement, verb: "生", targetLabel: rightLabel, targetElement: rightElement, spoken: leftLabel + leftElement + "生" + rightLabel + rightElement };
-          }
-          if (generates[rightElement] === leftElement) {
-            return { kind: "生", sourceLabel: rightLabel, sourceElement: rightElement, verb: "生", targetLabel: leftLabel, targetElement: leftElement, spoken: rightLabel + rightElement + "生" + leftLabel + leftElement };
-          }
-          if (controls[leftElement] === rightElement) {
-            return { kind: "克", sourceLabel: leftLabel, sourceElement: leftElement, verb: "克", targetLabel: rightLabel, targetElement: rightElement, spoken: leftLabel + leftElement + "克" + rightLabel + rightElement };
-          }
-          return { kind: "克", sourceLabel: rightLabel, sourceElement: rightElement, verb: "克", targetLabel: leftLabel, targetElement: leftElement, spoken: rightLabel + rightElement + "克" + leftLabel + leftElement };
+          var l = leftPalace.element, r = rightPalace.element;
+          var kind = l === r ? "比和" : generates[l] === r || generates[r] === l ? "生" : "克";
+          var swap = kind === "生" ? generates[r] === l : kind === "克" && controls[l] !== r;
+          var src = swap ? [rightLabel, r] : [leftLabel, l];
+          var tgt = swap ? [leftLabel, l] : [rightLabel, r];
+          return {
+            kind: kind, sourceLabel: src[0], sourceElement: src[1], verb: kind === "比和" ? "同气" : kind, targetLabel: tgt[0], targetElement: tgt[1],
+            spoken: kind === "比和" ? leftLabel + "与" + rightLabel + "同属" + l + "，五行比和" : src[0] + src[1] + kind + tgt[0] + tgt[1]
+          };
         }
 
-        function renderRelation(containerId, relation) {
-          var container = el(containerId);
+        function renderRelation(container, relation) {
           container.setAttribute("data-kind", relation.kind);
-          container.querySelector(".relation-kind").textContent = relation.kind === "生" ? "相生" : relation.kind === "克" ? "相克" : "比和";
-          var flow = container.querySelector(".relation-flow");
-          flow.replaceChildren();
-          if (relation.kind === "比和") {
-            flow.appendChild(document.createTextNode(relation.sourceLabel + " " + relation.sourceElement));
-            var harmony = document.createElement("span");
-            harmony.className = "relation-arrow";
-            harmony.textContent = " ＝同气＝ ";
-            flow.appendChild(harmony);
-            flow.appendChild(document.createTextNode(relation.targetLabel + " " + relation.targetElement));
-          } else {
-            flow.appendChild(document.createTextNode(relation.sourceLabel + " " + relation.sourceElement));
-            var arrow = document.createElement("span");
-            arrow.className = "relation-arrow";
-            arrow.textContent = " ─" + relation.verb + "→ ";
-            flow.appendChild(arrow);
-            flow.appendChild(document.createTextNode(relation.targetLabel + " " + relation.targetElement));
-          }
+          container.querySelector(".relation-kind").textContent = relation.kind === "比和" ? "比和" : "相" + relation.kind;
+          var arrow = document.createElement("span");
+          arrow.className = "relation-arrow";
+          arrow.textContent = relation.kind === "比和" ? " ＝同气＝ " : " ─" + relation.verb + "→ ";
+          container.querySelector(".relation-flow").replaceChildren(relation.sourceLabel + " " + relation.sourceElement, arrow, relation.targetLabel + " " + relation.targetElement);
         }
 
-        function renderPalaceDetail(containerId, palace) {
-          var container = el(containerId);
+        function renderPalaceDetail(container, palace) {
           if (container.getAttribute("data-palace") === palace.name) return;
 
           var facts = [
@@ -1122,8 +980,9 @@
           var solarParts = partsToObject(new Intl.DateTimeFormat("zh-CN", optionsWithZone({ year: "numeric", month: "numeric", day: "numeric", weekday: "long" })), now);
           var lunarParts = partsToObject(new Intl.DateTimeFormat("zh-CN-u-ca-chinese", optionsWithZone({ calendar: "chinese", year: "numeric", month: "long", day: "numeric" })), now);
           var clock = new Intl.DateTimeFormat("zh-CN", optionsWithZone({ hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" })).format(now);
-          var hourInfo = shichenForHour(getHour(now));
-          var countdown = shichenCountdown(now);
+          var t = timeOf(now);
+          var hourInfo = shichenForHour(t.hour);
+          var countdown = shichenCountdown(t);
           var ganzhi = lunarParts.yearName || "—";
           var yearBranch = ganzhi.slice(-1);
           var yearNumber = hourBranches.indexOf(yearBranch) + 1;
@@ -1132,10 +991,6 @@
           var lunarDay = lunarDayNames[lunarDayNumber] || lunarParts.day;
           var relatedYear = lunarParts.relatedYear || solarParts.year;
           var month = lunarParts.month || "—月";
-          var monthNumber = lunarMonthNumber(month);
-          var sequence = palaceSequence(monthNumber, lunarDayNumber, hourInfo.number);
-          var monthDayRelation = elementRelation("月宫", sequence.month, "日宫", sequence.day);
-          var dayHourRelation = elementRelation("日宫", sequence.day, "时宫", sequence.hour);
           var zoneText = zoneDescription(now);
 
           el("moment-label").textContent = "此刻 · " + (selectedZone === "America/New_York" ? "美东时间" : "北京时间");
@@ -1156,19 +1011,7 @@
           el("ganzhi").textContent = ganzhi + "年";
           el("year-number").textContent = yearBranch + " · " + (yearNumber || "—");
           el("hour-number").textContent = hourInfo.branch + " · " + hourInfo.number;
-          el("month-palace").textContent = sequence.month.name;
-          el("month-element").textContent = sequence.month.element;
-          el("day-palace").textContent = sequence.day.name;
-          el("day-element").textContent = sequence.day.element;
-          el("hour-palace").textContent = sequence.hour.name;
-          el("hour-element").textContent = sequence.hour.element;
-          renderRelation("month-day-relation", monthDayRelation);
-          renderRelation("day-hour-relation", dayHourRelation);
-          renderPalaceDetail("month-detail", sequence.month);
-          renderPalaceDetail("day-detail", sequence.day);
-          renderPalaceDetail("hour-detail", sequence.hour);
-          scopes.shichen.cast = { m: monthNumber, d: lunarDayNumber, h: hourInfo.number, seq: sequence, md: monthDayRelation, dh: dayHourRelation };
-          renderAdvice(scopes.shichen);
+          showCast(scopes.shichen, buildCast(lunarMonthNumber(month), lunarDayNumber, hourInfo.number));
           document.title = "小六壬";
         }
 
@@ -1188,7 +1031,9 @@
         var NO_VERSE = "歌诀未涉及此事";
         var HISTORY_KEY = "xlr-history-v1";
         var HISTORY_MAX = 50;
-        var scopes = { manual: { p: "", cat: "财", cast: null }, shichen: { p: "sc-", cat: "财", cast: null }, detail: { p: "hd-", cat: "财", cast: null, id: null } };
+        var scopes = { manual: { root: el("manual-cast"), cat: "财", cast: null }, shichen: { root: el("sc-cast"), cat: "财", cast: null }, detail: { root: el("hd-cast"), cat: "财", cast: null, id: null } };
+        [scopes.manual, scopes.shichen, scopes.detail].forEach(function (scope) { scope.root.appendChild(el("cast-tpl").content.cloneNode(true)); });
+        slot(scopes.shichen, "reduced").hidden = true;
         var historyFailed = false;
 
         function buildCast(m, d, h) {
@@ -1218,28 +1063,30 @@
           if (node.textContent !== text) node.textContent = text;
         }
 
+        function slot(scope, name) { return scope.root.querySelector('[data-slot="' + name + '"]'); }
+
         function renderAdvice(scope) {
           var c = scope.cast;
           if (!c) return;
-          el(scope.p + "advice-cats").querySelectorAll("[data-cat]").forEach(function (button) {
+          slot(scope, "cats").querySelectorAll("[data-cat]").forEach(function (button) {
             var on = String(button.getAttribute("data-cat") === scope.cat);
             if (button.getAttribute("aria-pressed") !== on) button.setAttribute("aria-pressed", on);
           });
           var a = adviceFor(c.seq, c.md, c.dh, scope.cat);
-          setText(el(scope.p + "advice-main"), "时宫" + a.main.palace + "：" + a.main.text);
-          setText(el(scope.p + "advice-ref"), a.refs.map(function (r) { return r.label + r.palace + "：" + r.text; }).join("\n"));
-          setText(el(scope.p + "advice-summary"), a.summary);
+          setText(slot(scope, "main"), "时宫" + a.main.palace + "：" + a.main.text);
+          setText(slot(scope, "ref"), a.refs.map(function (r) { return r.label + r.palace + "：" + r.text; }).join("\n"));
+          setText(slot(scope, "summary"), a.summary);
         }
 
-        function showCast(cast, pfx, scope) {
-          el(pfx + "-reduced").textContent = "月数 " + cast.m + " → " + cast.rm + "　日数 " + cast.d + " → " + cast.rd + "　时数 " + cast.h + " → " + cast.rh + "（大于 6 取除以 6 的余数，整除取 6）";
+        function showCast(scope, cast) {
+          setText(slot(scope, "reduced"), "月数 " + cast.m + " → " + cast.rm + "　日数 " + cast.d + " → " + cast.rd + "　时数 " + cast.h + " → " + cast.rh + "（大于 6 取除以 6 的余数，整除取 6）");
           [["month", cast.seq.month], ["day", cast.seq.day], ["hour", cast.seq.hour]].forEach(function (item) {
-            el(pfx + "-" + item[0] + "-palace").textContent = item[1].name;
-            el(pfx + "-" + item[0] + "-element").textContent = item[1].element;
-            renderPalaceDetail(pfx + "-" + item[0] + "-detail", item[1]);
+            setText(slot(scope, item[0] + "-palace"), item[1].name);
+            setText(slot(scope, item[0] + "-element"), item[1].element);
+            renderPalaceDetail(slot(scope, item[0] + "-detail"), item[1]);
           });
-          renderRelation(pfx + "-md-relation", cast.md);
-          renderRelation(pfx + "-dh-relation", cast.dh);
+          renderRelation(slot(scope, "md"), cast.md);
+          renderRelation(slot(scope, "dh"), cast.dh);
           scope.cast = cast;
           renderAdvice(scope);
         }
@@ -1255,7 +1102,7 @@
           scope.cat = categories[rec.cat] ? rec.cat : "财";
           scope.id = rec.id;
           el("detail-title").textContent = (rec.name || fmtTime(rec.ts)) + (rec.kind ? " · " + rec.kind : "");
-          showCast(buildCast(rec.m, rec.d, rec.h), "hd", scope);
+          showCast(scope, buildCast(rec.m, rec.d, rec.h));
           setView(true);
         }
 
@@ -1301,7 +1148,7 @@
 
         function updateHistory(id, patch) {
           var list = loadHistory();
-          list.forEach(function (r) { if (r.id === id) Object.keys(patch).forEach(function (k) { r[k] = patch[k]; }); });
+          list.forEach(function (r) { if (r.id === id) Object.assign(r, patch); });
           historyFailed = !saveHistory(list);
           el("history-hint").textContent = historyFailed ? "本机无法保存历史" : "";
         }
@@ -1381,14 +1228,14 @@
             return;
           }
           el("manual-hint").textContent = "";
-          showCast(buildCast(m, d, h), "manual", scopes.manual);
+          showCast(scopes.manual, buildCast(m, d, h));
           el("manual-result").hidden = false;
         }
 
         el("manual-form").addEventListener("submit", castManual);
 
         [scopes.manual, scopes.shichen, scopes.detail].forEach(function (scope) {
-          el(scope.p + "advice-cats").querySelectorAll("[data-cat]").forEach(function (button) {
+          slot(scope, "cats").querySelectorAll("[data-cat]").forEach(function (button) {
             button.addEventListener("click", function () {
               scope.cat = button.getAttribute("data-cat");
               if (scope.id) updateHistory(scope.id, { cat: scope.cat });
