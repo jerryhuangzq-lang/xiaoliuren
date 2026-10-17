@@ -1267,7 +1267,9 @@
         });
 
         refresh();
-        window.setInterval(refresh, 1000);
+        (function tick() {
+          window.setTimeout(function () { refresh(); tick(); }, 1000 - (Date.now() % 1000) + 5);
+        }());
         // iOS freezes timers while backgrounded; repaint immediately on return instead of waiting for the next tick
         document.addEventListener("visibilitychange", function () { if (!document.hidden) refresh(); });
         window.addEventListener("pageshow", refresh);
